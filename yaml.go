@@ -8,17 +8,16 @@
 //
 // See also http://ghodss.com/2014/the-right-way-to-handle-yaml-in-golang
 //
-package yaml  // import "github.com/ghodss/yaml"
+package yaml // import "github.com/ghodss/yaml"
 
 import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"gopkg.in/yaml.v3"
 	"io"
 	"reflect"
 	"strconv"
-
-	"gopkg.in/yaml.v2"
 )
 
 // Marshals the object into JSON then converts JSON to YAML and returns the
@@ -49,9 +48,9 @@ func Unmarshal(y []byte, o interface{}, opts ...JSONOpt) error {
 // UnmarshalStrict is like Unmarshal except that any mapping keys that are
 // duplicates will result in an error.
 // To also be strict about unknown fields, add the DisallowUnknownFields option.
-func UnmarshalStrict(y []byte, o interface{}, opts ...JSONOpt) error {
-	return unmarshal(yaml.UnmarshalStrict, y, o, opts)
-}
+//func UnmarshalStrict(y []byte, o interface{}, opts ...JSONOpt) error {
+//	return unmarshal(yaml.UnmarshalStrict, y, o, opts)
+//}
 
 func unmarshal(f func(in []byte, out interface{}) (err error), y []byte, o interface{}, opts []JSONOpt) error {
 	vo := reflect.ValueOf(o)
@@ -119,9 +118,9 @@ func YAMLToJSON(y []byte) ([]byte, error) {
 
 // YAMLToJSONStrict is like YAMLToJSON but enables strict YAML decoding,
 // returning an error on any duplicate field names.
-func YAMLToJSONStrict(y []byte) ([]byte, error) {
-	return yamlToJSON(y, nil, yaml.UnmarshalStrict)
-}
+//func YAMLToJSONStrict(y []byte) ([]byte, error) {
+//	return yamlToJSON(y, nil, yaml.UnmarshalStrict)
+//}
 
 func yamlToJSON(y []byte, jsonTarget *reflect.Value, yamlUnmarshal func([]byte, interface{}) error) ([]byte, error) {
 	// Convert the YAML to an object.
